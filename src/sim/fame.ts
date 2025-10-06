@@ -1,9 +1,7 @@
 import { stablesState } from './state';
-
 export function fameIndex(renown:number=0, notoriety:number=0){
   return Math.max(-100, Math.min(100, Math.round((renown - notoriety)/2)));
 }
-
 export function stablePolarity(stableId?: string){
   if (!stableId) return 'neutral' as const;
   const s = stablesState.stables[stableId]; if (!s) return 'neutral' as const;
@@ -12,7 +10,6 @@ export function stablePolarity(stableId?: string){
   if (idx <= -25) return 'infamous' as const;
   return 'neutral' as const;
 }
-
 export function reputationTitle(idx:number){
   if (idx>=60) return "Legend";
   if (idx>=30) return "Renowned";

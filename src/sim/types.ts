@@ -1,6 +1,16 @@
 export type WarriorId = string;
 export type StableId = string;
 
+export type Battle = {
+  dateISO: string;
+  opponentId?: WarriorId;
+  outcome: 'W'|'L';
+  method?: 'KO'|'Kill'|'WO'|'Dec';
+  tournament?: boolean;
+  division?: string;
+  day?: number;
+};
+
 export type Warrior = {
   id: WarriorId;
   name: string;
@@ -16,16 +26,6 @@ export type Warrior = {
   freeAgent?: boolean;
   role?: 'warrior'|'trainer'|'owner';
   age?: number;
-};
-
-export type Battle = {
-  dateISO: string;
-  opponentId?: WarriorId;
-  outcome: 'W'|'L';
-  method?: 'KO'|'Kill'|'WO'|'Dec';
-  tournament?: boolean;
-  division?: string;
-  day?: number;
 };
 
 export type Stable = {
