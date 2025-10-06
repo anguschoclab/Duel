@@ -1,31 +1,51 @@
-import React, { Suspense } from 'react';
-import './App.css';
-import { seedWorld } from '../sim/state';
-import StableDashboardPanel from './panels/StableDashboardPanel';
-import TournamentEntryPanel from './panels/TournamentEntryPanel';
-import PeopleDirectoryPanel from './panels/PeopleDirectoryPanel';
-import CompareWarriorsPanel from './panels/CompareWarriorsPanel';
-import OffersPanel from './panels/OffersPanel';
-import MilestonesPanel from './panels/MilestonesPanel';
-import RCAuditPanel from './panels/RCAuditPanel';
-import ToastCenter from './components/ToastCenter';
-import { VersionBadge } from './components/VersionBadge';
+import React, { Suspense, lazy } from 'react'
+import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
+import { useStore } from './hooks/useStore'
+import { ErrorBoundary } from './components/ErrorBoundary'
+import UpdatePrompt from './components/UpdatePrompt'
+import InstallAppButton from './components/InstallAppButton'
 
-seedWorld();
+const StartScreen = lazy(()=>import('./pages/StartScreen'))
+const Dashboard = lazy(()=>import('./pages/Dashboard'))
+const PeopleDirectory = lazy(()=>import('./pages/PeopleDirectory'))
+const ComparePage = lazy(()=>import('./pages/ComparePage'))
+const FightCardPage = lazy(()=>import('./pages/FightCardPage'))
 
 export default function App(){
-  return <div className="container" style={{display:'grid', gap:16}}>
-    <div className="row" style={{justifyContent:'space-between'}}>
-      <h1 style={{margin:0}}>Duelmasters (Dev)</h1>
-      <VersionBadge/>
+  const initialized = useStore(s => !!s.initialized)
+  const loc = useLocation()
+  const nav = useNavigate()
+
+  React.useEffect(()=>{
+    if (!initialized && loc.pathname !== '/start') nav('/start', { replace:true })
+  }, [initialized, loc.pathname])
+
+  return (
+    <div className="layout">
+      <header className="topbar">
+        <Link to="/" className="brand">Duelmasters</Link>
+        <nav className="nav">
+          <Link to="/">Dashboard</Link>
+          <Link to="/people">People</Link>
+          <Link to="/compare">Compare</Link>
+          <InstallAppButton />
+        </nav>
+      </header>
+      <main className="content">
+        <ErrorBoundary>
+          <Suspense fallback={<div className="card"><div className="sub">Loading…</div></div>}>
+            <Routes>
+              <Route path="/start" element={<StartScreen />} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/people" element={<PeopleDirectory />} />
+              <Route path="/compare" element={<ComparePage />} />
+              <Route path="/fight/:id" element={<FightCardPage />} />
+              <Route path="*" element={<StartScreen />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
+      </main>
+      <UpdatePrompt />
     </div>
-    <div className="card"><StableDashboardPanel/></div>
-    <div className="card"><TournamentEntryPanel division="Champions"/></div>
-    <div className="card"><PeopleDirectoryPanel/></div>
-    <div className="card" id="compare"><CompareWarriorsPanel/></div>
-    <div className="card" id="offers"><OffersPanel/></div>
-    <div className="card" id="milestones"><MilestonesPanel/></div>
-    <div className="card" id="rc-audit"><RCAuditPanel/></div>
-    <ToastCenter/>
-  </div>;
+  )
 }

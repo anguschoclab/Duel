@@ -1,21 +1,26 @@
 {
   "name": "duelmasters",
+  "version": "0.9.1-rc5",
   "private": true,
-  "version": "0.9.0-rc.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint:types": "tsc -p tsconfig.json --noEmit"
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "nanoid": "^5.0.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.7.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "typescript": "^5.6.2",
-    "vite": "^6.3.6"
+    "vite": "^7.1.9",
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite-plugin-pwa": "^0.20.5"
   }
 }

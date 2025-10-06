@@ -1,6 +1,13 @@
-import React, { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './ui/App';
-const root = createRoot(document.getElementById('root')!);
-root.render(<Suspense fallback={<div style={{padding:16}}>Loading…</div>}><App/></Suspense>);
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './ui/App'
+import './ui/styles/game.css'
+
+createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+)
