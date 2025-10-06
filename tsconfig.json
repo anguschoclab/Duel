@@ -13,7 +13,11 @@
     "outDir": "dist/types",
     "strict": true,
     "baseUrl": ".",
-    "paths": { "@sim/*": ["src/sim/*"], "@ui/*": ["src/ui/*"] }
+    "paths": {
+      "@sim/*": ["src/sim/*"],
+      "@ui/*": ["src/ui/*"]
+    },
+    "types": ["vite/client", "vite-plugin-pwa/client", "react", "react-dom"]
   },
   "include": ["src"]
 }
