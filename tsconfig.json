@@ -1,19 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": true,
     "jsx": "react-jsx",
     "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": false,
-    "outDir": "dist/types",
     "strict": true,
-    "baseUrl": ".",
-    "paths": { "@sim/*": ["src/sim/*"], "@ui/*": ["src/ui/*"] }
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
